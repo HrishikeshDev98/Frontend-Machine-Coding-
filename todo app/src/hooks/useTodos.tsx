@@ -13,7 +13,7 @@ export interface Todo {
 export interface IFormValues {
   title: string;
   priority: "High" | "Medium" | "Low" | "";
-  status: "Completed" | "Pending" | "";
+  completed: boolean;
 }
 
 export const useTodos = () => {
@@ -30,7 +30,7 @@ export const useTodos = () => {
     defaultValues: {
       title: "",
       priority: "",
-      status: "",
+      completed: false,
     },
   });
 
@@ -45,7 +45,7 @@ export const useTodos = () => {
       id,
       title: data.title,
       priority: data.priority,
-      completed: data.status === "Completed",
+      completed: false,
     };
     setTodos((prev) => [...prev, newTodo]);
     reset();
@@ -60,6 +60,14 @@ export const useTodos = () => {
     toast.success("Successfully deleted todo!");
   };
 
+  const changeStatus = (id: Todo["id"]) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
+    );
+  };
+
   return {
     todos,
     setTodos,
@@ -71,5 +79,6 @@ export const useTodos = () => {
     openModal,
     closeModal,
     deleteTodo,
+    changeStatus,
   };
 };

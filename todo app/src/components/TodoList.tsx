@@ -5,9 +5,11 @@ import type { Todo } from "../hooks/useTodos";
 const TodoList = ({
   todos,
   deleteTodo,
+  changeStatus,
 }: {
   todos: Todo[];
   deleteTodo: (id: number) => void;
+  changeStatus: (id: number) => void;
 }) => {
   if (!todos || todos.length === 0) {
     return (
@@ -22,7 +24,7 @@ const TodoList = ({
 
   return (
     <div className="divide-y divide-gray-100">
-      {todos.map(({ title, id, priority }, index) => {
+      {todos.map(({ title, id, priority, completed }, index) => {
         const isHighPriority = priority === "High";
 
         return (
@@ -34,6 +36,8 @@ const TodoList = ({
             priority={priority}
             isHighPriority={isHighPriority}
             deleteTodo={deleteTodo}
+            completed={completed}
+            changeStatus={changeStatus}
           />
         );
       })}

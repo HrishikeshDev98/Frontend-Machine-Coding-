@@ -13,6 +13,7 @@ const Todos = () => {
     closeModal,
     openModal,
     deleteTodo,
+    changeStatus
   } = useTodos();
 
   return (
@@ -26,7 +27,7 @@ const Todos = () => {
           addTodo={addTodo}
         />
         <TodoHeader openModal={openModal} />
-        <TodoList todos={todos} deleteTodo={deleteTodo} />
+        <TodoList todos={todos} deleteTodo={deleteTodo} changeStatus={changeStatus} />
       </div>
     </div>
   );

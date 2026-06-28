@@ -1,7 +1,4 @@
-import { MdDeleteOutline } from "react-icons/md";
-
 import Actualtodo from "./Todo";
-import { useSortable } from "@dnd-kit/react/sortable";
 
 import type { Todo } from "../hooks/useTodos";
 
@@ -30,6 +27,7 @@ const TodoList = ({
 
         return (
           <Actualtodo
+            key={id}
             id={id}
             index={index}
             title={title}

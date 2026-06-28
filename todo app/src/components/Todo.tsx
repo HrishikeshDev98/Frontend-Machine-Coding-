@@ -1,17 +1,23 @@
-import { useDraggable } from "@dnd-kit/react";
 import { useSortable } from "@dnd-kit/react/sortable";
-import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
+
+interface TodoProps {
+  id: number;
+  priority: string;
+  title: string;
+  isHighPriority: boolean;
+  deleteTodo: (id: number) => void;
+  index: number;
+}
 
 const Todo = ({
   id,
-  completed,
   priority,
   title,
   isHighPriority,
   deleteTodo,
   index,
-}) => {
+}: TodoProps) => {
   const { ref, isDragging } = useSortable({
     id,
     index,

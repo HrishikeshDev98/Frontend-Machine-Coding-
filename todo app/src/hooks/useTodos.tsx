@@ -37,11 +37,17 @@ export const useTodos = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const addTodo = async (newTodo: Todo) => {
+  const addTodo = async (data: IFormValues) => {
     const isValid = await trigger();
     if (!isValid) return;
     const id = todos.length + 1;
-    setTodos((prev) => [...prev, { ...newTodo, id }]);
+    const newTodo: Todo = {
+      id,
+      title: data.title,
+      priority: data.priority,
+      completed: data.status === "Completed",
+    };
+    setTodos((prev) => [...prev, newTodo]);
     reset();
     toast.success("Successfully created todo!");
     closeModal();

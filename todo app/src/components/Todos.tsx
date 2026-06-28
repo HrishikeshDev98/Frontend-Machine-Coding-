@@ -13,7 +13,9 @@ const Todos = () => {
     closeModal,
     openModal,
     deleteTodo,
-    changeStatus
+    changeStatus,
+    handleInputChange,
+    search,
   } = useTodos();
 
   return (
@@ -26,8 +28,16 @@ const Todos = () => {
           handleSubmit={handleSubmit}
           addTodo={addTodo}
         />
-        <TodoHeader openModal={openModal} />
-        <TodoList todos={todos} deleteTodo={deleteTodo} changeStatus={changeStatus} />
+        <TodoHeader
+          openModal={openModal}
+          search={search}
+          handleInputChange={handleInputChange}
+        />
+        <TodoList
+          todos={todos}
+          deleteTodo={deleteTodo}
+          changeStatus={changeStatus}
+        />
       </div>
     </div>
   );

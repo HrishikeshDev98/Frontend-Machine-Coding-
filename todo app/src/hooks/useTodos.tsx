@@ -1,5 +1,5 @@
 import initialTodos from "../constants/todos";
-import { useState } from "react";
+import { useCallback, useMemo, useState, type ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
@@ -19,6 +19,7 @@ export interface IFormValues {
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const {
     register,
@@ -60,6 +61,21 @@ export const useTodos = () => {
     toast.success("Successfully deleted todo!");
   };
 
+  const handleInputChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement, Element>) => {
+      setSearch(event.target.value);
+    },
+    [],
+  );
+
+  const filteredTodos = useMemo(
+    () =>
+      todos.filter((todo) =>  
+        todo.title.toLowerCase().includes(search.toLowerCase()),
+      ),
+    [todos, search],
+  );
+
   const changeStatus = (id: Todo["id"]) => {
     setTodos((prev) =>
       prev.map((todo) =>
@@ -69,7 +85,7 @@ export const useTodos = () => {
   };
 
   return {
-    todos,
+    todos: filteredTodos,
     setTodos,
     isModalOpen,
     addTodo,
@@ -80,5 +96,7 @@ export const useTodos = () => {
     closeModal,
     deleteTodo,
     changeStatus,
+    handleInputChange,
+    search,
   };
 };

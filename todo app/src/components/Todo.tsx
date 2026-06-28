@@ -1,6 +1,6 @@
 import { useSortable } from "@dnd-kit/react/sortable";
 import { MdDeleteOutline } from "react-icons/md";
-import { MdDragIndicator } from "react-icons/md"; // Added a nice drag handle icon
+import { MdDragIndicator } from "react-icons/md";
 
 interface TodoProps {
   id: number;
@@ -90,10 +90,10 @@ const Todo = ({
       <div className="flex items-center ml-4 shrink-0">
         <button
           onClick={() => deleteTodo(id)}
-          className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-xl transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-red-100"
+          className="p-2 text-gray-400 hover:text-indigo-300 hover:bg-red-50 rounded-xl transition-all duration-150 focus:outline-none"
           aria-label="Delete todo"
         >
-          <MdDeleteOutline size={18} />
+          <MdDeleteOutline size={24} className="text-indigo-500" />
         </button>
       </div>
     </div>

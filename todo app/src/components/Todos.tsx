@@ -1,7 +1,7 @@
 import { useTodos } from "../hooks/useTodos";
 import Modal from "./Modal";
 import TodoList from "./TodoList";
-import Header from "./Header";
+import TodoHeader from "./TodoHeader";
 
 const Todos = () => {
   const {
@@ -25,7 +25,7 @@ const Todos = () => {
           handleSubmit={handleSubmit}
           addTodo={addTodo}
         />
-        <Header openModal={openModal} />
+        <TodoHeader openModal={openModal} />
         <TodoList todos={todos} deleteTodo={deleteTodo} />
       </div>
     </div>

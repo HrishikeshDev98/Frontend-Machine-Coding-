@@ -1,7 +1,12 @@
 import React from "react";
 import { FiPlus } from "react-icons/fi";
+import { useDraggable } from "@dnd-kit/react";
 
-const Header = ({ openModal }: { openModal: () => void }) => {
+const TodoHeader = ({ openModal }: { openModal: () => void }) => {
+  const { ref } = useDraggable({
+    id: "draggable",
+  });
+
   return (
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 mb-8 border-b border-gray-200 gap-4">
       <div>
@@ -13,6 +18,7 @@ const Header = ({ openModal }: { openModal: () => void }) => {
         </p>
       </div>
       <button
+        ref={ref}
         onClick={openModal}
         className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-sm rounded-xl shadow-sm hover:shadow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 active:scale-95"
       >
@@ -23,4 +29,4 @@ const Header = ({ openModal }: { openModal: () => void }) => {
   );
 };
 
-export default Header;
+export default TodoHeader;

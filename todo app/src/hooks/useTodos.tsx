@@ -1,6 +1,7 @@
 import initialTodos from "../constants/todos";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export interface Todo {
   id: number;
@@ -9,16 +10,15 @@ export interface Todo {
   priority: string;
 }
 
-interface IFormValues {
+export interface IFormValues {
   title: string;
-  priority: string;
+  priority: "High" | "Medium" | "Low" | "";
+  status: "Completed" | "Pending" | "";
 }
 
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>(initialTodos);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  console.log(todos);
 
   const {
     register,
@@ -30,6 +30,7 @@ export const useTodos = () => {
     defaultValues: {
       title: "",
       priority: "",
+      status: "",
     },
   });
 
@@ -39,10 +40,18 @@ export const useTodos = () => {
   const addTodo = async (newTodo: Todo) => {
     const isValid = await trigger();
     if (!isValid) return;
-    console.log(newTodo);
-    setTodos((prev) => [...prev, newTodo]);
+    const id = todos.length + 1;
+    setTodos((prev) => [...prev, { ...newTodo, id }]);
     reset();
+    toast.success("Successfully created todo!");
     closeModal();
+  };
+
+  const deleteTodo = (id: number) => {
+    setTodos((prev) => {
+      return prev.filter((todo) => todo.id !== id);
+    });
+    toast.success("Successfully deleted todo!");
   };
 
   return {
@@ -55,5 +64,6 @@ export const useTodos = () => {
     register,
     openModal,
     closeModal,
+    deleteTodo,
   };
 };

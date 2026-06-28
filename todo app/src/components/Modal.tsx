@@ -3,18 +3,14 @@ import type {
   UseFormRegister,
   UseFormHandleSubmit,
 } from "react-hook-form";
-
-interface IFormValues {
-  title: string;
-  priority: "High" | "Low" | "";
-}
+import type { IFormValues } from "../hooks/useTodos";
 
 interface ModalProps {
   isOpen: boolean;
   onClose?: () => void;
   register: UseFormRegister<IFormValues>;
   handleSubmit: UseFormHandleSubmit<IFormValues>;
-  addTodo: () => void;
+  addTodo: (data: IFormValues) => void;
 }
 
 const Modal = ({
@@ -64,7 +60,6 @@ const Modal = ({
             />
           </div>
 
-          {/* Priority Select */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Priority Level
@@ -78,8 +73,20 @@ const Modal = ({
               <option value="Low">🟢 Low</option>
             </select>
           </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Status
+            </label>
+            <select
+              {...register("status")}
+              className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm transition-colors"
+            >
+              <option value="">Select Status...</option>
+              <option value="High">Completed</option>
+              <option value="Low">Pending</option>
+            </select>
+          </div>
 
-          {/* Actions */}
           <div className="flex justify-end space-x-3 pt-4 border-t border-gray-100">
             {onClose && (
               <button

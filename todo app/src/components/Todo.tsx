@@ -1,10 +1,26 @@
+import { useDraggable } from "@dnd-kit/react";
+import { useSortable } from "@dnd-kit/react/sortable";
 import React from "react";
 import { MdDeleteOutline } from "react-icons/md";
-import type { Todo } from "../hooks/useTodos";
 
-const Todo = ({ id, completed, priority, title }: Todo) => {
+const Todo = ({
+  id,
+  completed,
+  priority,
+  title,
+  isHighPriority,
+  deleteTodo,
+  index,
+}) => {
+  const { ref, isDragging } = useSortable({
+    id,
+    index,
+    type: "item",
+    accept: "item",
+  });
+
   return (
-    <>
+    <div ref={ref} data-dragging={isDragging}>
       <div
         key={id}
         className="group flex items-center justify-between p-4 sm:p-5 hover:bg-gray-50/70 transition-colors duration-150"
@@ -35,7 +51,7 @@ const Todo = ({ id, completed, priority, title }: Todo) => {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

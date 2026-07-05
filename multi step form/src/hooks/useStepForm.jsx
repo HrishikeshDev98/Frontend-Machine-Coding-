@@ -53,28 +53,36 @@ const getFormValidationSchema = (step) => {
 export const useStepForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
-  const StepComponent = getStepComponent(currentStep);
-
-  const isFirstStep = currentStep === 0;
-  const isLastStep = currentStep === 2;
-
-
-  const handleNextStep = () => {
-    if (!isLastStep) {
-      setCurrentStep((prevStep) => prevStep + 1);
-    }
-  }
-
   const {
     register,
     handleSubmit,
     watch,
+    control,
     trigger,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(getFormValidationSchema(currentStep)),
   }
   );
+
+
+  const StepComponent = getStepComponent(currentStep);
+
+  const isFirstStep = currentStep === 0;
+  const isLastStep = currentStep === 2;
+
+
+  const handleNextStep = async () => {
+    if (!isLastStep) {
+      const isValid = await trigger(); // Validate the current step before moving to the next
+      if (isValid) {
+        setCurrentStep((prevStep) => prevStep + 1);
+      }
+    } else {
+      // Handle form submission or final step logic here
+    }
+  }
+
 
   return {
     currentStep,
@@ -83,9 +91,10 @@ export const useStepForm = () => {
     handleSubmit,
     watch,
     errors,
-    currentStepComponent: StepComponent,
     handleNextStep,
     isFirstStep,
     isLastStep,
+    currentStepComponent: StepComponent,
+    control
   };
 };

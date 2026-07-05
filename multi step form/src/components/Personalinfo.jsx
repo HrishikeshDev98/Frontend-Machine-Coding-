@@ -1,6 +1,6 @@
 const Personalinfo = () => {
   return <div>
-
+    
   </div>;
 };
 

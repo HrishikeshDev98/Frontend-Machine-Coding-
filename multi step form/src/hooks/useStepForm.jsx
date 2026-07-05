@@ -28,13 +28,13 @@ const personalInfoschema = yup.object().shape({
 });
 
 const professionalInfoschema = yup.object().shape({
-  jobTitle: yup.string().required(),
-  company: yup.string().required()
+  company: yup.string().required(),
+  role: yup.string().required(),
 });
 
 const preferencesInfoschema = yup.object().shape({
   newsletter: yup.boolean(),
-  notifications: yup.boolean()
+  theme: yup.mixed().oneOf(['light', 'dark']).required()
 });
 
 const getFormValidationSchema = (step) => {
@@ -55,6 +55,16 @@ export const useStepForm = () => {
 
   const StepComponent = getStepComponent(currentStep);
 
+  const isFirstStep = currentStep === 0;
+  const isLastStep = currentStep === 2;
+
+
+  const handleNextStep = () => {
+    if (!isLastStep) {
+      setCurrentStep((prevStep) => prevStep + 1);
+    }
+  }
+
   const {
     register,
     handleSubmit,
@@ -74,5 +84,8 @@ export const useStepForm = () => {
     watch,
     errors,
     currentStepComponent: StepComponent,
+    handleNextStep,
+    isFirstStep,
+    isLastStep,
   };
 };

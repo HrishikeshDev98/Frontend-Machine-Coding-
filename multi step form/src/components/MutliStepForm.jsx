@@ -4,11 +4,14 @@ const MutliStepForm = () => {
   const {
     currentStep,
     setCurrentStep,
-    currentStepComponent: StepComponent,
-    errors,
-    handleSubmit,
     register,
+    handleSubmit,
     watch,
+    errors,
+    currentStepComponent: StepComponent,
+    handleNextStep,
+    isFirstStep,
+    isLastStep,
   } = useStepForm();
 
   return (

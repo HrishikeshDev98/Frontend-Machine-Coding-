@@ -1,4 +1,6 @@
-const PreferencesInfo = ({ register, errors, control }) => {
+import Input from "./Input";
+
+const PreferencesInfo = ({ register, errors }) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="mb-1">
@@ -12,8 +14,11 @@ const PreferencesInfo = ({ register, errors, control }) => {
           <span className="text-sm font-medium text-gray-800">Newsletter</span>
           <span className="text-xs text-gray-500">Receive product updates and news.</span>
         </div>
-        <input
+        <Input
           type="checkbox"
+          name="newsletter"
+          register={register}
+          error={errors.newsletter?.message}
           className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer"
         />
       </label>
@@ -27,9 +32,11 @@ const PreferencesInfo = ({ register, errors, control }) => {
               key={theme}
               className="flex items-center gap-2 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-sm shadow-sm cursor-pointer capitalize hover:border-blue-400 transition-colors duration-200"
             >
-              <input
+              <Input
                 type="radio"
                 name="theme"
+                register={register}
+                error={errors.theme?.message}
                 value={theme}
                 className="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500 cursor-pointer"
               />

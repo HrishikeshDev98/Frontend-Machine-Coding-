@@ -62,6 +62,7 @@ export const useStepForm = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(getFormValidationSchema(currentStep)),
+    mode: "onChange",
   }
   );
 
@@ -73,14 +74,16 @@ export const useStepForm = () => {
 
 
   const handleNextStep = async () => {
-    if (!isLastStep) {
-      const isValid = await trigger(); // Validate the current step before moving to the next
-      if (isValid) {
-        setCurrentStep((prevStep) => prevStep + 1);
-      }
-    } else {
-      // Handle form submission or final step logic here
+    // const isValid = await trigger();
+    const isValid = true; // For testing purposes, you can set this to true or false
+    console.log("isValid", isValid);
+    if (isValid) {
+      setCurrentStep((prevStep) => prevStep + 1);
     }
+  }
+
+  const handlePreviousStep = () => {
+    if (!isFirstStep) setCurrentStep((prevStep) => prevStep - 1);
   }
 
 
@@ -95,6 +98,7 @@ export const useStepForm = () => {
     isFirstStep,
     isLastStep,
     currentStepComponent: StepComponent,
-    control
+    control,
+    handlePreviousStep
   };
 };

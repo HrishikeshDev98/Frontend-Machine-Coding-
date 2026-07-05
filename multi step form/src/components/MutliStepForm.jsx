@@ -11,6 +11,8 @@ const MultiStepForm = () => {
     control,
     isFirstStep,
     isLastStep,
+    handleNextStep,
+    handlePreviousStep
   } = useStepForm();
 
   return (
@@ -72,12 +74,14 @@ const MultiStepForm = () => {
           <button
             type="button"
             disabled={isFirstStep}
+            onClick={handlePreviousStep}
             className="px-5 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg shadow-sm transition-all duration-200 hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Back
           </button>
           <button
             type="button"
+            onClick={handleNextStep}
             className="px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-sm shadow-blue-200 transition-all duration-200 hover:bg-blue-700 active:scale-[0.98]"
           >
             {isLastStep ? "Submit" : "Next"}

@@ -74,12 +74,11 @@ export const useStepForm = () => {
 
 
   const handleNextStep = async () => {
-    // const isValid = await trigger();
-    const isValid = true; // For testing purposes, you can set this to true or false
-    console.log("isValid", isValid);
-    if (isValid) {
+    const isValid = await trigger();
+    if (isValid && !isLastStep) {
       setCurrentStep((prevStep) => prevStep + 1);
     }
+    console.log("Form Data:", watch());
   }
 
   const handlePreviousStep = () => {
